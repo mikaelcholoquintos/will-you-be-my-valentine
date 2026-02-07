@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>will you be my valentine</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #ffe6ea;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 90%;
+    }
+
+    img {
+      width: 220px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      color: black;
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      position: relative;
+      height: 120px;
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 18px 36px;
+      font-size: 1.4rem;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      position: absolute;
+    }
+
+    #yesBtn {
+      background: #ff4d6d;
+      color: white;
+      left: 50%;
+      transform: translateX(-50%) scale(1);
+      z-index: 2;
+    }
+
+    #noBtn {
+      background: white;
+      color: #ff4d6d;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-top: 70px;
+      z-index: 1;
+    }
+
+    #yesBtn.fullscreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      font-size: 3rem;
+      border-radius: 0;
+      transform: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <img src="i-miss-you-bear-milk-and-mocha.gif" alt="">
+
+    <h1>will you be my valentine?</h1>
+
+    <div class="buttons">
+      <button id="yesBtn">yes</button>
+      <button id="noBtn">no</button>
+    </div>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+
+    let scale = 1;
+    let moveX = 0;
+    let noClickCount = 0;
+
+    const noTexts = [
+      "are you sure?",
+      "really sure?",
+      "wrong answer think again",
+      "last chance",
+      "final answer",
+      "think about it more ill wait",
+      "please?",
+      "youre breaking my heart",
+      ":(",
+      "are you sure sure?",
+      "final final answer"
+    ];
+
+    noBtn.addEventListener("click", () => {
+      scale += 0.25;
+      moveX += 60;
+
+      yesBtn.style.transform = `translateX(-50%) scale(${scale})`;
+      noBtn.style.transform = `translateX(calc(-50% + ${moveX}px))`;
+
+      if (noClickCount < noTexts.length) {
+        noBtn.textContent = noTexts[noClickCount];
+        noClickCount++;
+      }
+
+      if (scale >= 4) {
+        yesBtn.classList.add("fullscreen");
+        yesBtn.textContent = "yes";
+        noBtn.style.display = "none";
+      }
+    });
+
+    yesBtn.addEventListener("click", () => {
+      document.body.innerHTML = `
+        <div style="
+          height:100vh;
+          width:100vw;
+          background:#ff4d6d;
+          display:flex;
+          justify-content:center;
+          align-items:center;
+          color:white;
+          font-size:3rem;
+          text-align:center;
+          padding:20px;
+        ">
+          yay<br>i love you
+        </div>
+      `;
+    });
+  </script>
+</body>
+</html>
